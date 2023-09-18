@@ -17,8 +17,24 @@ services:
         networks:
             - blog_network
 
+    #   SERVIDOR HTTP
+    nginx:
+        container_name: blog_nginx
+        build: ./nginx/
+        restart: always
+        volumes:
+            - nginx:/var/lib/nginx
+        env_file:
+            - .env
+        ports:
+            - "8080:80"
+        networks:
+            - blog_network
+            
 volumes:
     redis:
+        driver: local
+    nginx:
         driver: local
 
 networks:
