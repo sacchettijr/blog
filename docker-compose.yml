@@ -1,0 +1,26 @@
+version: '3.10'
+
+services:
+
+    #   SERVIÇO DE CACHE
+    redis:
+        container_name: blog_redis
+        build: ./redis/
+        restart: always
+        privileged: true
+        volumes:
+            - redis:/var/lib/redis
+        env_file:
+            - .env
+        ports:
+            - "6379:6379"
+        networks:
+            - blog_network
+
+volumes:
+    redis:
+        driver: local
+
+networks:
+    blog_network:
+        driver: bridge
